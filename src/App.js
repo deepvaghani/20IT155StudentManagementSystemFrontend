@@ -1,15 +1,23 @@
-import Student from './components/Student';
-import StudentList from './components/StudentList';
 import NavigationBar from './components/NavigationBar';
 import Footer from './components/Footer';
+import Container from 'react-bootstrap/Container';
+import Student from './components/Student';
+import StudentList from './components/StudentList';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 function App() {
   return (
     <div className="App">
-      <NavigationBar/>
-      <Student/>
-      <StudentList/>
-      <Footer/>
+      <Router>
+        <NavigationBar />
+        <Container>
+          <Routes>
+            <Route path="student" element={<Student />} />
+            <Route path="listStudents" element={<StudentList />} />
+          </Routes>
+        </Container>
+        <Footer />
+      </Router>
     </div>
   );
 }
