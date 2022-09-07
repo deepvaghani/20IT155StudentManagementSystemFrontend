@@ -2,7 +2,7 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+
 
 export default function NavigationBar() {
   return (
@@ -15,7 +15,6 @@ export default function NavigationBar() {
           <Nav className="me-auto">
             <Nav.Link href="#features">Add Student</Nav.Link>
             <Nav.Link href="#pricing">View Students</Nav.Link>
-
           </Nav>
         </Navbar.Collapse>
       </Container>
