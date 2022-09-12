@@ -15,7 +15,7 @@ export default function Student(props) {
   useEffect(() => {
     if (studentId) {
       axios
-        .get("http://localhost:8080/student/" + studentId)
+        .get("http://localhost:8080/student/" + studentId,{withCredentials:true})
         .then((response) => {
           if (response.data != null) {
             setId(response.data.id);
@@ -47,10 +47,10 @@ export default function Student(props) {
     event.preventDefault();
     
       axios
-        .post("http://localhost:8080/student", student)
+        .post("http://localhost:8080/student", student, {withCredentials:true})
         .then((response) => {
           if (response.data != null) {
-            props.showAlert("success", "Record added successfully");
+            props.showAlert("Success", "Record added successfully");
           }
         })
         .catch((error) => props.showAlert("danger", "Error"));
@@ -58,9 +58,9 @@ export default function Student(props) {
 
   let updateStudent = (event) => {
     event.preventDefault();
-    axios.put("http://localhost:8080/student/" + studentId, student).then((response) => {
+    axios.put("http://localhost:8080/student/" + studentId, student, {withCredentials:true}).then((response) => {
       if (response.data != null) {
-        props.showAlert("success", "Record updated successfully");
+        props.showAlert("Success", "Record updated successfully");
         navigate("/listStudents"); // Navigate to Students List Components
       }
     });
@@ -83,6 +83,7 @@ export default function Student(props) {
                   type="text"
                   placeholder="Enter id"
                   onChange={textChanged}
+                  required
                 />
               </Form.Group>
               <Form.Group className="mb-3">
@@ -93,6 +94,7 @@ export default function Student(props) {
                   type="text"
                   placeholder="Enter name"
                   onChange={textChanged}
+                  required
                 />
               </Form.Group>
               <Form.Group className="mb-3">
@@ -103,6 +105,7 @@ export default function Student(props) {
                   type="text"
                   placeholder="Enter address"
                   onChange={textChanged}
+                  required
                 />
               </Form.Group>
             </Card.Body>
