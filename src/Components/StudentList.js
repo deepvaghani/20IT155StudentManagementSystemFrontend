@@ -3,10 +3,12 @@ import { Card, Container, Table, ButtonGroup, Button } from "react-bootstrap";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
+import { Navigate } from "react-router-dom";
 
 export default function StudentList(props) {
   const [students, setStudents] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getStudents();
@@ -25,6 +27,10 @@ export default function StudentList(props) {
       if (response.data !== null){
         props.showAlert("success", "Record deleted successfully")
         setStudents(students.filter(student=>student.id!==studentId));
+      }
+      else{
+        props.showAlert("danger", "Please Login.")
+        navigate("/login");
       }
     })
   }
