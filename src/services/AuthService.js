@@ -23,4 +23,8 @@ export default function AuthService() {
     let register = (userRegistrationDetails) =>{
         return axios.post(URL+"/register", userRegistrationDetails);
     }
+
+    let getCurrentuser = () => {
+        return JSON.parser(localStorage.getItem("user"));
+    }
 }
