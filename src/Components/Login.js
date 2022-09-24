@@ -1,67 +1,77 @@
-import Button from 'react-bootstrap/Button';
-import { Container, Card } from "react-bootstrap";
-import Form from 'react-bootstrap/Form';
-import { useState } from 'react';
-import axios from "axios";
+import { faEnvelope, faLock, faSignInAlt, faUndo } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState } from "react";
+import { Button, Card, Container, Form, InputGroup } from "react-bootstrap";
+import { login } from "../services/AuthService";
 
-export default function Login(props) {
+export default function Login() {
 
-    const [username, setUsername] = useState(null);
-    const [password, setPassword] = useState(null);
-
-    let login = {
-        username: username,
-        password: password
-    };
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
 
     let textChanged = (event) => {
-        if (event.target.name === "username") {
-            setUsername(event.target.value);
-        } else if (event.target.name === "password") {
+        if (event.target.name === "email") {
+            setEmail(event.target.value);
+        } else if (event.taget.name === "password") {
             setPassword(event.target.value);
         }
-    };
+    }
 
-    let loginStudent = (event) => {
-        event.preventDefault();
-
-        axios
-            .post("http://localhost:8080/login", login, { withCredentials: true })
-            .then((response) => {
-                if (response.data != null) {
-                    props.showAlert("success", "Login Successfully");
-                }
-            })
-            .catch((error) => props.showAlert("danger", "Error"));
-    };
+    let doLogin = (event) => {
+        login(email, password)
+            .then(response => console.log(response))
+            .catch(error => console.log(error));
+    }
 
     return (
-        <div className="my-3">
-            <Container>
-                <Card>
-                    <Form onSubmit={loginStudent}>
-                        <Card.Header>
-                            <strong>Login</strong>
-                        </Card.Header>
-                        <Card.Body>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Username</Form.Label>
-                                <Form.Control type="text" name="username" value={username} placeholder="Enter Username" onChange={textChanged} required/>
-                            </Form.Group>
-
-                            <Form.Group className="mb-3" controlId="formBasicPassword">
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" name="password" value={password} placeholder="Enter Password" onChange={textChanged} required />
-                            </Form.Group>
-                        </Card.Body>
-                        <Card.Footer>
-                            <Button variant="primary" type="submit">
-                                Login
-                            </Button>
-                        </Card.Footer>
-                    </Form>
-                </Card>
-            </Container>
-        </div >
+        <Container>
+            <div className="row my-4" style={{ justifyContent: "center" }}>
+                <div className="col-md-3 com-md-offset-3">
+                    <Card>
+                        <Card.Header> Login Form</Card.Header>
+                        <Form>
+                            <Card.Body>
+                                <Form.Group className="mb-3">
+                                    <InputGroup>
+                                        <InputGroup.Text>
+                                            <FontAwesomeIcon icon={faEnvelope} />
+                                        </InputGroup.Text>
+                                        <Form.Control
+                                            name="email" value={email}
+                                            type="email"
+                                            placeholder="Enter email"
+                                            onChange={textChanged}
+                                        ></Form.Control>
+                                    </InputGroup>
+                                </Form.Group>
+                                <Form.Group className="mb-3">
+                                    <InputGroup>
+                                        <InputGroup.Text>
+                                            <FontAwesomeIcon icon={faLock} />
+                                        </InputGroup.Text>
+                                        <Form.Control
+                                            name="password" value={password}
+                                            type="password"
+                                            placeholder="Enter password"
+                                            onChange={textChanged}
+                                        ></Form.Control>
+                                    </InputGroup>
+                                </Form.Group>
+                            </Card.Body>
+                            <Card.Footer>
+                                <Button variant="primary" type="submit">
+                                    <FontAwesomeIcon icon={faSignInAlt} />{' '}
+                                    Login
+                                </Button>{' '}
+                                <Button variant="primary" type="reset">
+                                    <FontAwesomeIcon icon={faUndo} />{' '}
+                                    Reset
+                                </Button>
+                            </Card.Footer>
+                        </Form>
+                    </Card>
+                </div>
+            </div>
+        </Container>
     );
 }
