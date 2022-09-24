@@ -9,15 +9,18 @@ export default function AuthService() {
 
 }
 
-export let login = (username, password) => {
+export const login = (username, password) => {
+
     return axios.post(URL, { username, password })
         .then(
             response => {
                 if (response.data.token) {
-                    localStorage("user", JSON.stringify(response.data));
+                    localStorage.setItem("user", JSON.stringify(response.data));
                 }
                 return response.data;
-            });
+            })
+        .catch(error => alert(error));
+
 }
 
 export let logout = () => {

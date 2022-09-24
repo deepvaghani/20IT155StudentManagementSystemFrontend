@@ -12,7 +12,7 @@ export default function Login() {
     let textChanged = (event) => {
         if (event.target.name === "email") {
             setEmail(event.target.value);
-        } else if (event.taget.name === "password") {
+        } else if (event.target.name === "password") {
             setPassword(event.target.value);
         }
     }
@@ -23,13 +23,14 @@ export default function Login() {
             .catch(error => console.log(error));
     }
 
+
     return (
         <Container>
             <div className="row my-4" style={{ justifyContent: "center" }}>
                 <div className="col-md-3 com-md-offset-3">
                     <Card>
                         <Card.Header> Login Form</Card.Header>
-                        <Form>
+                        <Form onSubmit={doLogin}>
                             <Card.Body>
                                 <Form.Group className="mb-3">
                                     <InputGroup>
@@ -38,7 +39,7 @@ export default function Login() {
                                         </InputGroup.Text>
                                         <Form.Control
                                             name="email" value={email}
-                                            type="email"
+                                            type="text"
                                             placeholder="Enter email"
                                             onChange={textChanged}
                                         ></Form.Control>
