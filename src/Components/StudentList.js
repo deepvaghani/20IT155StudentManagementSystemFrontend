@@ -16,7 +16,7 @@ export default function StudentList(props) {
 
   let getStudents = () => {
     axios
-      .get("http://localhost:8080/listStudents",{withCredentials:true})
+      .get("http://localhost:8080/students",{withCredentials:true})
       .then((response) => setStudents(response.data))
       .catch((error) => alert(error));
   };
@@ -58,13 +58,13 @@ export default function StudentList(props) {
                 </tr>
               ) : (
                 students.map((student)=>
-                <tr key={student.id}>
-                  <td>{student.id}</td>
-                  <td>{student.name}</td>
-                  <td>{student.address}</td>
+                <tr key={student._Id}>
+                  <td>{student.Id}</td>
+                  <td>{student.Name}</td>
+                  <td>{student.Address}</td>
                   <td>
                     <ButtonGroup>
-                      <Link to={"/student/"+student.id}><Button size="sm" variant="outline-primary"><FontAwesomeIcon icon={faEdit}> Edit </FontAwesomeIcon></Button></Link>{ ' '}
+                      <Link to={"/students/"+student.id}><Button size="sm" variant="outline-primary"><FontAwesomeIcon icon={faEdit}> Edit </FontAwesomeIcon></Button></Link>{ ' '}
                       <Button size="sm" variant="outline-danger" onClick={deleteStudent.bind(this,student.id)}><FontAwesomeIcon icon={faTrash}> Delete </FontAwesomeIcon></Button>
                     </ButtonGroup>
                   </td>
